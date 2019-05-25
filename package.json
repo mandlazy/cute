@@ -1,26 +1,27 @@
 {
-  "name": "@mandlzay/address",
+  "name": "@mandlazy/cute",
   "version": "1.0.0",
-  "description": "基于antd Cascader 地址选择组件",
-  "main": "dist/index.js",
+  "description": "基于antd 封装",
+  "main": "es/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c rollup.config.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mandlazy/address.git"
+    "url": "git+https://github.com/mandlazy/cute.git"
   },
   "keywords": [
     "address",
+    "form-item",
     "地址选择"
   ],
   "author": "jeesoong@live.com",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mandlazy/address/issues"
+    "url": "https://github.com/mandlazy/cute/issues"
   },
-  "homepage": "https://github.com/mandlazy/address#readme",
+  "homepage": "https://github.com/mandlazy/cute#readme",
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
