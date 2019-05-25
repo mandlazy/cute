@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Form, Input, Button, DatePicker, Select} from 'antd'
-import Address from '../address'
+import { Address } from '@mandlazy/cute'
 const { RangePicker } = DatePicker
 const { TextArea } = Input
 const Option = Select.Option
