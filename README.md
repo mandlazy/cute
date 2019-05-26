@@ -10,7 +10,11 @@
 
 ## Useage  
 ```
+npm i @mandlazy/cute
+yarn add @mandlazy/cute
+
 import { FormItem } from '@mandlazy/cute'
+
 const configList = [
   {
     type: 'input',
