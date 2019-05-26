@@ -1,11 +1,12 @@
 {
   "name": "@mandlazy/cute",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "基于antd 封装",
-  "main": "es/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rollup -c rollup.config.js"
+    "build": "rollup -c rollup.config.js",
+    "commit": "git-cz"
   },
   "repository": {
     "type": "git",
@@ -17,7 +18,7 @@
     "地址选择"
   ],
   "author": "jeesoong@live.com",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/mandlazy/cute/issues"
   },
@@ -30,6 +31,8 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/runtime": "^7.4.5",
     "camelcase": "^5.3.1",
+    "commitizen": "^3.1.1",
+    "cz-conventional-changelog": "^2.1.0",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-commonjs": "^10.0.0",
     "rollup-plugin-node-resolve": "^5.0.0",
@@ -38,5 +41,10 @@
   "dependencies": {
     "antd": "^3.18.2",
     "react": "^16.8.6"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
   }
 }

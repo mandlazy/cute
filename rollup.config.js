@@ -39,13 +39,13 @@ export default Object.keys(entrys).map(key => {
   if (key === 'index') {
     config.output = {
       format: 'es',
-      file: 'es/index.js'
+      file: 'dist/index.js'
     }
     config.external = id => id.includes('./component')
   } else {
     config.output = {
       format: 'es',
-      file: `es/component/${key}.js`
+      file: `dist/component/${key}.js`
     }
   }
   console.log(config)
