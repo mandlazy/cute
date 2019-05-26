@@ -6,20 +6,20 @@
  </p>  
 
 基于antd 的简单封装，目的提升开发效率  
-借助antd form中的getFieldDecorator可以快捷的实现表单的初始赋值，表单的提交
+借助antd form中的getFieldDecorator可以快捷的实现表单的初始赋值，表单的提交  
+地区组件基于antd Cascader，数据封装在组件里面，暂时未做通过接口获取省市区数据，组件体积较大
 
 ## Useage  
+> npm i @mandlazy/cute  
+or  
+> yarn add @mandlazy/cute  
 ```
-npm i @mandlazy/cute
-yarn add @mandlazy/cute
-
 import { FormItem } from '@mandlazy/cute'
-
 const configList = [
   {
     type: 'input',
     label: '收货人',
-    key: 'receiver_name',
+    key: 'receiverName',
     placeholder: '收货人'
   },
   {
@@ -49,6 +49,9 @@ return (
     ))}
   </Form>
 )
+
+...
+formValues = this.props.form.getFieldsValue()
 ```
 
 
