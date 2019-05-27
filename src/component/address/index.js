@@ -11,53 +11,51 @@ import { country } from './data/country'
  * @props {Function} onChange
  * @props {Array} resultMap
  * @props {String} initType
- * @props {Array} defaultValue 
+ * @props {Array} defaultValue
  * @props {String} placeholder
  */
 class Address extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      options: addIsLeaf(province)
+      options: addIsLeaf(province),
     }
   }
 
+  componentWillMount() {
+    this.initDefaultValue()
+  }
+
   onChange = (value, selectedOptions) => {
-    const result = this.props.resultType === 'spec' ? this.setSelectedValues4Spec(selectedOptions, this.props.resultMap) : this.setSelectedValues(selectedOptions)
-    // console.log('result', result)
-    this.props.onChange(result)
+    const { resultType, resultMap, onChange } = this.props
+    const result = resultType === 'spec' ? this.setSelectedValues4Spec(selectedOptions, resultMap) : this.setSelectedValues(selectedOptions)
+    onChange(result)
   }
 
   /**
    * @returns {Array} 省市区对象数组，对象里面包含{id, name}
    */
-  setSelectedValues = selectedOptions => {
-    return selectedOptions.map(cur => {
-      const { id, name } = cur
-      return {
-        id,
-        name
-      }
-    })
-  }
+  setSelectedValues = selectedOptions => selectedOptions.map((cur) => {
+    const { id, name } = cur
+    return {
+      id,
+      name,
+    }
+  })
 
   /**
    * 特殊返回值方法
    */
-  setSelectedValues4Spec = (selectedOptions, resultMap) => {
-    return selectedOptions.reduce((res, cur, idx) => {
+  setSelectedValues4Spec = (selectedOptions, resultMap) => (
+    selectedOptions.reduce((res, cur, idx) => {
       res[resultMap[idx]] = cur.name
       return res
     }, {})
-  }
+  )
 
-  getTargetOption = option => {
-    return option[option.length - 1]
-  }
+  getTargetOption = option => option[option.length - 1]
 
-  getDefaultId = options => {
-    return options.map(option => this.getTargetOption(option)['id'] || '')
-  }
+  getDefaultId = options => options.map(option => this.getTargetOption(option).id || '')
 
   /**
    * 兼容异常情况，如果区的名字不匹配，则返回本市默认第一条
@@ -67,21 +65,25 @@ class Address extends Component {
     return compatible.length ? compatible : [option[0]]
   }
 
-  loadData = selectedOptions => {
+  loadData = (selectedOptions) => {
+    const { options } = this.state
     const targetOption = this.getTargetOption(selectedOptions)
-    targetOption.items = !targetOption.hasOwnProperty('province') ? addIsLeaf(city[targetOption.id]) : country[targetOption.id]
+    const hasOwnProvince = Object.prototype.hasOwnProperty.call(targetOption, 'province');
+    targetOption.items = !hasOwnProvince
+      ? addIsLeaf(city[targetOption.id])
+      : country[targetOption.id]
     this.setState({
-      options: [...this.state.options]
+      options: [...options],
     })
     // 为了方便初始化数据额外增加的返回值
     return targetOption.items
   }
 
-  getValueIdByName = defaultValue => {
+  getValueIdByName = (defaultValue) => {
     const { options } = this.state
-    const provinceOption = options.filter(cur => cur.name === defaultValue['province'])
-    const cityOption = this.loadData(provinceOption).filter(cur => [defaultValue['city'], '市辖区'].includes(cur.name) )
-    const countryOption = this.getCompatibleOption(this.loadData(cityOption), defaultValue['country'])
+    const provinceOption = options.filter(cur => cur.name === defaultValue.province)
+    const cityOption = this.loadData(provinceOption).filter(cur => [defaultValue.city, '市辖区'].includes(cur.name))
+    const countryOption = this.getCompatibleOption(this.loadData(cityOption), defaultValue.country)
     return this.getDefaultId([provinceOption, cityOption, countryOption])
   }
 
@@ -89,22 +91,20 @@ class Address extends Component {
     const { initType = 'id', defaultValue } = this.props
     if (!defaultValue) return
     this.setState({
-      defaultValue: initType === 'name' ? this.getValueIdByName(defaultValue) : defaultValue
+      defaultValue: initType === 'name' ? this.getValueIdByName(defaultValue) : defaultValue,
     })
   }
 
-  componentWillMount() {
-    this.initDefaultValue()
-  }
-
   render() {
+    const { placeholder } = this.props
+    const { defaultValue, options } = this.state
     return (
       <Cascader
         style={{ width: 300 }}
-        placeholder={this.props.placeholder}
-        defaultValue={this.state.defaultValue}
+        placeholder={placeholder}
+        defaultValue={defaultValue}
         fieldNames={{ label: 'name', value: 'id', children: 'items' }}
-        options={this.state.options}
+        options={options}
         loadData={this.loadData}
         onChange={this.onChange}
         changeOnSelect
