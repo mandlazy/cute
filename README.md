@@ -62,5 +62,18 @@ return (
 formValues = this.props.form.getFieldsValue()
 ```
 
+## 属性
+### Address 组件
+|  参数  |  类型  |  可选值  |  默认值  |  说明  |
+|  :--:  |  :--:  |  :--:  |  :--:  |  :--:  |
+| initType | String |  id/name | id | 初始化默认值的方式 |
+| defaultValue | Array | - | '' | 设置默认值['北京市', '北京市', '朝阳区'] or ['1000', '1100', '1110'] |
+| resultType | String | spec | '' | 如果设置spec，则返回{'province': '北京市', 'city': ...} |
+| resultMap | Array | - | [] | 如果resultType=spec,则返回对象的key可以用resultMap做映射 |
+| placeholder | String | - | '' | placeholder |
+| onChange | Function | - | () => {} | 选择项改变时的回调 |
+
+
+
 
 

@@ -8,7 +8,7 @@ const getComponentModuleNames = componentDir => {
 
 const makeEntryFile = componentModuleNames => {
   const content = componentModuleNames.map(componentName => {
-    return `export { default as ${camelCase(componentName, {pascalCase: true})} } from './component/${componentName}';`
+    return `export { default as ${camelCase(componentName, {pascalCase: true})} } from './component/${componentName}'`
   })
   const index = './src/index.js'
   fs.writeFileSync(index, content.join('\n'))
