@@ -1,9 +1,12 @@
-import React, { Component } from 'react'
-import { Form, Input, Button, DatePicker, Select } from 'antd'
-import { Address } from '@mandlazy/cute'
+import React, { Component, Fragment } from 'react'
+import {
+  Form, Input, Button, DatePicker, Select,
+} from 'antd'
+import Address from '../address'
+
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-const Option = Select.Option
+const { Option } = Select
 
 export default class Item extends Component {
   constructor(props) {
@@ -13,16 +16,14 @@ export default class Item extends Component {
 
   getItemByType = ({
     type,
-    label,
     placeholder,
     rows = 4,
-    key,
     defaultValue = '',
     initType = 'id',
     resultMap,
     resultType,
     list = [],
-    handleChange = () => {}
+    handleChange = () => {},
   }) => {
     switch (type) {
       case 'input':
@@ -35,9 +36,7 @@ export default class Item extends Component {
             style={{ width: 120 }}
             onChange={value => handleChange(value, list)}
           >
-            {list.map(cur => {
-              return <Option value={cur.id}>{cur.name}</Option>
-            })}
+            {list.map(cur => <Option value={cur.id}>{cur.name}</Option>)}
           </Select>
         )
       case 'rangePicker':
@@ -52,39 +51,38 @@ export default class Item extends Component {
             placeholder={placeholder}
           />
         )
+      default:
+        return <Fragment />
     }
   }
 
   render() {
+    const { formItemLayout, item } = this.props
     const {
       type,
       label,
-      placeholder,
-      rows = 4,
       key,
       defaultValue = '',
       list = [],
-      handleChange = () => {}
-    } = this.props.item
+    } = item
 
-    const getFieldDecorator = this.props.getFieldDecorator
+    const { getFieldDecorator } = this.props
 
     if (type === 'button') {
       return (
         <Form.Item>
-          {list.map(cur => {
+          {list.map((cur) => {
             const {
-              type,
+              type: buttonType,
               className = '',
               icon = '',
               htmlType = '',
               handleChange = () => {},
-              label,
-              loading
+              loading,
             } = cur
             return (
               <Button
-                type={type}
+                type={buttonType}
                 icon={icon}
                 className={className}
                 htmlType={htmlType}
@@ -100,9 +98,9 @@ export default class Item extends Component {
     }
 
     return (
-      <Form.Item label={label} {...this.props.formItemLayout}>
+      <Form.Item label={label} {...formItemLayout}>
         {getFieldDecorator(key, { initialValue: defaultValue })(
-          this.getItemByType(this.props.item)
+          this.getItemByType(item),
         )}
       </Form.Item>
     )

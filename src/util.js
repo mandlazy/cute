@@ -1,8 +1,4 @@
-export const addIsLeaf = (list = []) => {
-  return list.map(cur => {
-    return {
-      ...cur,
-      isLeaf: false
-    }
-  })
-}
+export const addIsLeaf = (list = []) => list.map(cur => ({
+  ...cur,
+  isLeaf: false,
+}));
