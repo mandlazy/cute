@@ -18,6 +18,7 @@ export default class Item extends Component {
     rows = 4,
     key,
     defaultValue = '',
+    initType = 'id',
     resultMap,
     resultType,
     list = [],
@@ -44,6 +45,7 @@ export default class Item extends Component {
       case 'address':
         return (
           <Address
+            initType={initType}
             defaultValue={defaultValue}
             resultMap={resultMap}
             resultType={resultType}
