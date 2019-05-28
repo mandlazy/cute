@@ -1,1 +1,2 @@
-src/component/address/data/*.js
+/dist
+/src/component/address/data
