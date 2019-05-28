@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ext js,jsx src/",
+    "prebuild": "rimraf dist",
     "build": "rollup -c rollup.config.js",
     "commit": "git-cz"
   },
@@ -44,6 +45,7 @@
     "eslint-plugin-react": "^7.13.0",
     "husky": "^2.3.0",
     "lint-staged": "^8.1.7",
+    "rimraf": "^2.6.3",
     "rollup": "^1.12.4",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-commonjs": "^10.0.0",
