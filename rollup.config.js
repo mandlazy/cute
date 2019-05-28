@@ -1,7 +1,7 @@
 import resolve from 'rollup-plugin-node-resolve'
 import babel from 'rollup-plugin-babel'
 import commonjs from 'rollup-plugin-commonjs'
-import { terser } from "rollup-plugin-terser"
+import { terser } from 'rollup-plugin-terser'
 import { getInput } from './util'
 
 const entrys = getInput()
@@ -9,7 +9,7 @@ const entrys = getInput()
 const baseConfig = {
   plugins: [
     resolve({
-      extensions: ['.jsx', '.js']
+      extensions: ['.jsx', '.js'],
     }),
     commonjs({
       exclude: 'src/**',
@@ -21,33 +21,34 @@ const baseConfig = {
         [
           '@babel/plugin-transform-runtime',
         ],
-        ['@babel/plugin-proposal-class-properties', { "loose": true }],
-      ]
+        ['@babel/plugin-proposal-class-properties', { loose: true }],
+      ],
     }),
-    terser()
+    terser(),
   ],
-  // 是否开启代码分割
-  experimentalCodeSplitting: true,
-  external: ['react', 'antd', '@mandlazy/cute']
+  external: [
+    'react',
+    'antd',
+    '../address',
+  ],
 }
 
-export default Object.keys(entrys).map(key => {
+export default Object.keys(entrys).map((key) => {
   const config = {
     input: entrys[key],
-    ...baseConfig
+    ...baseConfig,
   }
   if (key === 'index') {
     config.output = {
       format: 'es',
-      file: 'dist/index.js'
+      file: 'dist/index.js',
     }
     config.external = id => id.includes('./component')
   } else {
     config.output = {
       format: 'es',
-      file: `dist/component/${key}.js`
+      file: `dist/component/${key}.js`,
     }
   }
-  console.log(config)
-  return config 
+  return config
 })
