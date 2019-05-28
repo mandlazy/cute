@@ -2,14 +2,10 @@ const fs = require('fs')
 const path = require('path')
 const camelCase = require('camelcase')
 
-const getComponentModuleNames = componentDir => {
-  return fs.readdirSync(path.resolve(componentDir))
-}
+const getComponentModuleNames = componentDir => fs.readdirSync(path.resolve(componentDir))
 
-const makeEntryFile = componentModuleNames => {
-  const content = componentModuleNames.map(componentName => {
-    return `export { default as ${camelCase(componentName, {pascalCase: true})} } from './component/${componentName}'`
-  })
+const makeEntryFile = (componentModuleNames) => {
+  const content = componentModuleNames.map(componentName => `export { default as ${camelCase(componentName, { pascalCase: true })} } from './component/${componentName}'`)
   const index = './src/index.js'
   fs.writeFileSync(index, content.join('\n'))
   return { index }
@@ -30,12 +26,8 @@ export const getInput = () => {
   const restEntry = getRestEntry(componentModuleNames, componentDir)
   return {
     ...index,
-    ...restEntry
+    ...restEntry,
   }
 }
 
-export const getOutput = name => {
-  console.log(name)
-  return name === 'index' ? 'index.js' : `${name}/index.js`
-}
-
+export const getOutput = name => (name === 'index' ? 'index.js' : `${name}/index.js`)
