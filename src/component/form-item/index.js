@@ -18,6 +18,7 @@ export default class Item extends Component {
     type,
     placeholder,
     rows = 4,
+    width = 120,
     defaultValue = '',
     initType = 'id',
     resultMap,
@@ -33,10 +34,10 @@ export default class Item extends Component {
       case 'select':
         return (
           <Select
-            style={{ width: 120 }}
+            style={{ width }}
             onChange={value => handleChange(value, list)}
           >
-            {list.map(cur => <Option value={cur.id}>{cur.name}</Option>)}
+            {list.map(cur => <Option key={cur.id} value={cur.id}>{cur.name}</Option>)}
           </Select>
         )
       case 'rangePicker':
@@ -73,15 +74,18 @@ export default class Item extends Component {
         <Form.Item>
           {list.map((cur) => {
             const {
-              type: buttonType = 'button',
+              type: buttonType,
+              buttonKey,
               className = '',
               icon = '',
-              htmlType = '',
+              htmlType = 'button',
+              label: buttonLabel,
               handleChange = () => {},
               loading,
             } = cur
             return (
               <Button
+                key={buttonKey}
                 type={buttonType}
                 icon={icon}
                 className={className}
@@ -89,7 +93,7 @@ export default class Item extends Component {
                 onClick={handleChange}
                 loading={loading}
               >
-                {label}
+                {buttonLabel}
               </Button>
             )
           })}
