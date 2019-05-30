@@ -73,7 +73,7 @@ export default class Item extends Component {
         <Form.Item>
           {list.map((cur) => {
             const {
-              type: buttonType,
+              type: buttonType = 'button',
               className = '',
               icon = '',
               htmlType = '',
@@ -98,7 +98,7 @@ export default class Item extends Component {
     }
 
     return (
-      <Form.Item label={label} {...formItemLayout}>
+      <Form.Item key={key} label={label} {...formItemLayout}>
         {getFieldDecorator(key, { initialValue: defaultValue })(
           this.getItemByType(item),
         )}
