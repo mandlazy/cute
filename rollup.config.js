@@ -29,7 +29,7 @@ const baseConfig = {
   external: [
     'react',
     'antd',
-    '../address',
+    './address',
   ],
 }
 
@@ -47,7 +47,7 @@ export default Object.keys(entrys).map((key) => {
   } else {
     config.output = {
       format: 'es',
-      file: `dist/component/${key}.js`,
+      file: `dist/component/${key}/index.js`,
     }
   }
   return config
